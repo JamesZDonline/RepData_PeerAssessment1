@@ -136,6 +136,8 @@ median(steps.per.day2$total)
 ## [1] 10395
 ```
 
+Clearly this method does not change the median value, but it does slightly increase the mean from the analysis which simply ignores the missing values. It does not appear to significantly change the histogram however.
+
 ## Are there differences in activity patterns between weekdays and weekends?
 
 The first step in answering this question is to create a variable days which consists of the day of the week. This can be generated using the datetime variable. The levels can then be renamed to weekend and weekday.
