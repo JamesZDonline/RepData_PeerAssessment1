@@ -137,3 +137,30 @@ median(steps.per.day2$total)
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+The first step in answering this question is to create a variable days which consists of the day of the week. This can be generated using the datetime variable. The levels can then be renamed to weekend and weekday.
+
+
+```r
+library(ggplot2)
+activityFill$day<-weekdays(activityFill$datetime)
+activityFill$day<-factor(ifelse(activityFill$day %in% c("Saturday","Sunday"),"Weekend","Weekday"))
+```
+
+The data can then be averaged across all weekday days or weekend days, the interval variable can be converted to a numeric value. Finally, the data can be plotted using the qplot function.
+
+
+```r
+activityWeek<-ddply(activityFill,.(day,interval),summarize,average=mean(steps,na.rm=TRUE))
+
+activityWeek$interval<-as.numeric(as.character(activityWeek$interval))
+
+qplot(interval,average,data=activityWeek,facets=day~.,geom="line",ylab="Number of Steps")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
+
+From these graphs, it does appear that there are differences in activity patterns betweent he weekend and the weekdays. During the Weekdays there is a large spike in the number of steps between the 500 and 1000 interval and then relatively low levels of activity for the rest of the day. The weekend activity appears to be more consistent throughout the day.
+
+
+
